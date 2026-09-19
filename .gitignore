@@ -5,3 +5,6 @@ logs/
 allure-results/
 allure-report/
 .vscode/
+
+# Guía interna en español (no se sube al repositorio)
+README.es.md
