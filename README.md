@@ -308,6 +308,10 @@ All 24 steps passed (login: 15, signup: 9). Two kinds of images are produced:
 
 All images live in the [`screenshots/`](screenshots) folder.
 
+### Test report (all tests passed)
+
+![Test report - all tests passed](screenshots/REPORT_all_tests_passed.png)
+
 ### Login flow
 
 Login screen under test:
