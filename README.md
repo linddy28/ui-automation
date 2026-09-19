@@ -240,8 +240,8 @@ Every scenario includes **at least two assertions**, as required.
    - The email field is displayed.
    - The login button is displayed.
 2. **A user submits the login form** (data-driven, two example rows)
-   - The login button is still present after submitting.
-   - The login screen remains interactive (email field still displayed).
+   - The login is processed and the app navigates to `MainActivity`.
+   - We remain inside the login example app package.
 3. **Navigate from login to signup**
    - The signup form (name field) is displayed.
    - The signup button is displayed.
@@ -252,7 +252,7 @@ Every scenario includes **at least two assertions**, as required.
    - The name field is displayed.
    - The signup button is displayed.
 2. **Register a new user with valid data**
-   - The registration form was submitted (signup button still exists).
+   - The registration is processed and the app leaves `SignupActivity`.
    - We remain inside the app package `com.sourcey.materialloginexample`.
 
 ---
@@ -291,6 +291,27 @@ This satisfies the requirement of running the project through an automated pipel
 
 - **Console output:** the `spec` reporter prints a per-scenario summary in the terminal.
 - **Appium logs:** written to `./logs/` and uploaded as an artifact in CI.
+- **Screenshots:** an `After` hook captures a screenshot at the end of every
+  scenario into `./screenshots/`, named `<STATUS>_<scenario>.png`.
+
+---
+
+## Screenshots (execution evidence)
+
+The following screenshots were captured while running the suite against a real
+Android emulator (API 30). All 24 steps passed (login: 15, signup: 9).
+
+| Scenario | Screenshot |
+| -------- | ---------- |
+| Login form shows the expected controls | `screenshots/PASSED_Login_form_shows_the_expected_controls.png` |
+| A user submits the login form | `screenshots/PASSED_A_user_submits_the_login_form.png` |
+| Navigate from login to signup | `screenshots/PASSED_Navigate_from_login_to_signup.png` |
+| Signup form shows the expected controls | `screenshots/PASSED_Signup_form_shows_the_expected_controls.png` |
+| Register a new user with valid data | `screenshots/PASSED_Register_a_new_user_with_valid_data.png` |
+
+Login screen under test:
+
+![Login screen](screenshots/PASSED_Login_form_shows_the_expected_controls.png)
 
 ---
 
