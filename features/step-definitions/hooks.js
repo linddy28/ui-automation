@@ -1,10 +1,8 @@
 import { Before, After } from '@wdio/cucumber-framework';
-import { mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { startScenarioShots, snapResult } from '../../support/screenshot.js';
 
 const APP_PACKAGE = 'com.sourcey.materialloginexample';
 const LOGIN_ACTIVITY = 'com.sourcey.materiallogindemo.LoginActivity';
-const SCREENSHOTS_DIR = join(process.cwd(), 'screenshots');
 
 /**
  * Reset the app to a clean Login screen before every scenario.
@@ -16,32 +14,29 @@ const SCREENSHOTS_DIR = join(process.cwd(), 'screenshots');
  * Terminating and relaunching the activity gives each scenario a deterministic
  * starting point on LoginActivity.
  */
-Before(async () => {
+Before(async (scenario) => {
   try {
     await driver.terminateApp(APP_PACKAGE);
   } catch {
     // App may not be running yet on the very first scenario; ignore.
   }
   await driver.startActivity(APP_PACKAGE, LOGIN_ACTIVITY);
+
+  const name = scenario && scenario.pickle && scenario.pickle.name
+    ? scenario.pickle.name
+    : 'scenario';
+  startScenarioShots(name);
 });
 
 /**
- * Capture a screenshot at the end of every scenario as visual evidence.
- * Files are saved to ./screenshots/<PASSED|FAILED>_<scenario name>.png.
+ * Capture a final PASSED/FAILED screenshot at the end of every scenario.
  */
 After(async (scenario) => {
-  try {
-    mkdirSync(SCREENSHOTS_DIR, { recursive: true });
-    const status = scenario.result && scenario.result.status
-      ? String(scenario.result.status).toUpperCase()
-      : 'UNKNOWN';
-    const name = (scenario.pickle && scenario.pickle.name ? scenario.pickle.name : 'scenario')
-      .replace(/[^a-z0-9]+/gi, '_')
-      .replace(/^_+|_+$/g, '')
-      .slice(0, 80);
-    const file = join(SCREENSHOTS_DIR, `${status}_${name}.png`);
-    await driver.saveScreenshot(file);
-  } catch {
-    // Never let screenshot capture fail the scenario.
-  }
+  const status = scenario && scenario.result && scenario.result.status
+    ? scenario.result.status
+    : 'unknown';
+  const name = scenario && scenario.pickle && scenario.pickle.name
+    ? scenario.pickle.name
+    : 'scenario';
+  await snapResult(status, name);
 });

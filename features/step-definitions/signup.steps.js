@@ -2,10 +2,12 @@ import { Given, When, Then } from '@wdio/cucumber-framework';
 import { expect } from 'expect-webdriverio';
 import LoginPage from '../../pageobjects/login.page.js';
 import SignupPage from '../../pageobjects/signup.page.js';
+import { snap } from '../../support/screenshot.js';
 
 Given('I navigate to the signup screen', async () => {
   await LoginPage.goToSignup();
   await expect(await SignupPage.inputName).toBeDisplayed();
+  await snap('signup_screen');
 });
 
 When('I register with the following data', async (dataTable) => {
@@ -18,14 +20,17 @@ When('I register with the following data', async (dataTable) => {
     password: row.password,
     reEnterPassword: row.reEnterPassword ?? row.password,
   });
+  await snap('after_signup_submit');
 });
 
 Then('I should see the name field', async () => {
   await expect(await SignupPage.inputName).toBeDisplayed();
+  await snap('name_field_visible');
 });
 
 Then('I should see the signup button', async () => {
   await expect(await SignupPage.btnSignup).toBeDisplayed();
+  await snap('signup_button_visible');
 });
 
 Then('the registration should be processed', async () => {
@@ -45,6 +50,7 @@ Then('the registration should be processed', async () => {
   );
   const activity = await driver.getCurrentActivity();
   await expect(activity).not.toContain('SignupActivity');
+  await snap('registration_processed');
 });
 
 Then('I should remain in the application', async () => {

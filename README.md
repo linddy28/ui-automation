@@ -298,20 +298,41 @@ This satisfies the requirement of running the project through an automated pipel
 
 ## Screenshots (execution evidence)
 
-The following screenshots were captured while running the suite against a real
-Android emulator (API 30). All 24 steps passed (login: 15, signup: 9).
+Screenshots are captured automatically against a real Android emulator (API 30).
+All 24 steps passed (login: 15, signup: 9). Two kinds of images are produced:
 
-| Scenario | Screenshot |
-| -------- | ---------- |
-| Login form shows the expected controls | `screenshots/PASSED_Login_form_shows_the_expected_controls.png` |
-| A user submits the login form | `screenshots/PASSED_A_user_submits_the_login_form.png` |
-| Navigate from login to signup | `screenshots/PASSED_Navigate_from_login_to_signup.png` |
-| Signup form shows the expected controls | `screenshots/PASSED_Signup_form_shows_the_expected_controls.png` |
-| Register a new user with valid data | `screenshots/PASSED_Register_a_new_user_with_valid_data.png` |
+- **Step-by-step** — one screenshot per key step, named
+  `<scenario>__NN_<step>.png`, ordered by execution.
+- **Final result** — one screenshot per scenario, named
+  `<PASSED|FAILED>_<scenario>.png`.
+
+All images live in the [`screenshots/`](screenshots) folder.
+
+### Login flow
 
 Login screen under test:
 
-![Login screen](screenshots/PASSED_Login_form_shows_the_expected_controls.png)
+![Login screen](screenshots/Login_form_shows_the_expected_controls__01_login_screen.png)
+
+After submitting valid credentials the app navigates to the main screen:
+
+![Login processed](screenshots/A_user_submits_the_login_form__03_login_processed_main_activity.png)
+
+### Registration flow
+
+The signup form filled in by the automation:
+
+![Signup form filled](screenshots/Register_a_new_user_with_valid_data__03_after_signup_submit.png)
+
+### Step-by-step evidence per scenario
+
+| Scenario | Screenshots |
+| -------- | ----------- |
+| Login form shows the expected controls | `01_login_screen`, `02_email_field_visible`, `03_login_button_visible` |
+| A user submits the login form | `01_login_screen`, `02_after_login_submit`, `03_login_processed_main_activity` |
+| Navigate from login to signup | `01_login_screen`, `02_after_tap_signup_link`, `03_signup_form_visible`, `04_signup_button_visible` |
+| Signup form shows the expected controls | `01_login_screen`, `02_signup_screen`, `03_name_field_visible`, `04_signup_button_visible` |
+| Register a new user with valid data | `01_login_screen`, `02_signup_screen`, `03_after_signup_submit`, `04_registration_processed` |
 
 ---
 
