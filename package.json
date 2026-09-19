@@ -1,0 +1,31 @@
+{
+  "name": "materiallogin-ui-automation",
+  "version": "1.0.0",
+  "description": "UI automation for MaterialLoginExample.apk using WebdriverIO + Appium + Cucumber (Page Object Model)",
+  "type": "module",
+  "scripts": {
+    "test": "wdio run ./wdio.conf.js",
+    "test:login": "wdio run ./wdio.conf.js --cucumberOpts.tagExpression='@login'",
+    "test:signup": "wdio run ./wdio.conf.js --cucumberOpts.tagExpression='@signup'",
+    "appium": "appium --allow-insecure=adb_shell"
+  },
+  "keywords": [
+    "webdriverio",
+    "appium",
+    "cucumber",
+    "page-object-model",
+    "android",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/appium-service": "^9.2.8",
+    "@wdio/cli": "^9.2.8",
+    "@wdio/cucumber-framework": "^9.2.8",
+    "@wdio/local-runner": "^9.2.8",
+    "@wdio/spec-reporter": "^9.2.8",
+    "appium": "^2.11.3",
+    "appium-uiautomator2-driver": "^3.7.7"
+  }
+}
