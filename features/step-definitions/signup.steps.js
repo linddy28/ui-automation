@@ -28,9 +28,23 @@ Then('I should see the signup button', async () => {
   await expect(await SignupPage.btnSignup).toBeDisplayed();
 });
 
-Then('the registration form should have been submitted', async () => {
-  // After submitting, the signup button should still exist in the app.
-  await expect(await SignupPage.btnSignup).toBeExisting();
+Then('the registration should be processed', async () => {
+  // After tapping SIGNUP the app shows a "Creating Account..." progress dialog
+  // for a couple of seconds and then leaves the signup screen. We wait until we
+  // are no longer on SignupActivity, which is the real evidence the submit was
+  // processed.
+  await driver.waitUntil(
+    async () => {
+      const activity = await driver.getCurrentActivity();
+      return activity && !activity.includes('SignupActivity');
+    },
+    {
+      timeout: 20000,
+      timeoutMsg: 'The app did not leave SignupActivity after submitting',
+    }
+  );
+  const activity = await driver.getCurrentActivity();
+  await expect(activity).not.toContain('SignupActivity');
 });
 
 Then('I should remain in the application', async () => {

@@ -16,8 +16,8 @@ Feature: User login
   @login
   Scenario Outline: A user submits the login form
     When I login with email "<email>" and password "<password>"
-    Then the login button should still be present
-    And the login screen should remain interactive
+    Then the login should be processed
+    And I should remain in the login example app
 
     Examples:
       | email                | password   |

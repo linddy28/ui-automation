@@ -19,5 +19,5 @@ Feature: User registration
     When I register with the following data
       | name      | address        | email                 | mobile     | password    |
       | John Test | 123 Main St    | john.test@banco.com   | 78945612   | Password1!  |
-    Then the registration form should have been submitted
+    Then the registration should be processed
     And I should remain in the application
